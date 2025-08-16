@@ -14,7 +14,7 @@ const Home = () => {
   }
 
   function obterSaudacao(morador: null | Morador) {
-    if(morador) {
+    if (morador) {
       return <span>Olá, {formatarNomeMorador(morador)}!</span>
     }
     return <span>Olá, Estranho!!!</span>
@@ -28,7 +28,9 @@ const Home = () => {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
-      <h1 className="text-2xl font-bold">{obterSaudacao(morador)}</h1>
+      <div className="bg-blue-800 p-6 px-16 rounded-md">
+        <h1 className="text-2xl font-bold text-white">{obterSaudacao(morador)}</h1>
+      </div>
     </div>
   )
 }
