@@ -27,9 +27,11 @@ const Home = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
-      <div className="bg-blue-800 p-6 px-16 rounded-md">
-        <h1 className="text-2xl font-bold text-white">{obterSaudacao(morador)}</h1>
+    <div id="principal" className="flex items-center justify-center min-h-screen bg-black">
+      <div id="componente-azul" className="card-azul">
+        <h1 id="name" className="text-2xl font-bold text-center">
+          {obterSaudacao(morador)}
+        </h1>
       </div>
     </div>
   )
