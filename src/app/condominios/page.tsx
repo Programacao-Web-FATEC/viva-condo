@@ -1,6 +1,20 @@
 "use client"
 
+import { useEffect, useState } from "react"
+import { getCondominios, ICondominio } from "@/services/api-condominios"
+
 export default function ListaCondominios() {
+    const [condominios, setCondominios] = useState<ICondominio[]>([]);
+
+    useEffect(() => {
+        const buscarCondominios = async () => {
+            const data = await getCondominios();
+            console.log(data);
+            setCondominios(data);
+        }
+
+        buscarCondominios();
+    }, []);
 
     return (
         <div className="p-6 max-w-full">
@@ -9,8 +23,7 @@ export default function ListaCondominios() {
             </div>
 
             <div className="bg-white rounded-md border border-gray-200 overflow-hidden">
-                <table
-                 className="min-w-full divide-y divide-gray-200">
+                <table className="min-w-full divide-y divide-gray-200">
                     <thead className="bg-gray-50">
                         <tr>
                             <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 tracking-wider w-12">
@@ -37,13 +50,39 @@ export default function ListaCondominios() {
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-200 bg-white">
-                        <tr>
-                            <td className="px-4 py-3 text-sm text-gray-700" colSpan={7}>
-                                Nenhum condomínio encontrado.
-                            </td>
-                        </tr>
+                        {condominios.length == 0 ? (
+                            <tr>
+                                <td className="px-4 py-3 text-sm text-gray-700" colSpan={7}>
+                                    Nenhum condomínio encontrado.
+                                </td>
+                            </tr>
+                        ) : (
+                            condominios.map((condominio, index) => (
+                                <tr key={condominio.id_condominio} className="hover:bg-gray-50">
+                                    <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-500">
+                                        {String(index + 1)}
+                                    </td>
+                                    <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-500">
+                                        {condominio.nome_condominio}
+                                    </td>
+                                    <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-500">
+                                        {condominio.endereco_condominio}
+                                    </td>
+                                    <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-500">
+                                        {condominio.cidade_condominio}
+                                    </td>
+                                    <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-500">
+                                        {condominio.uf_condominio}
+                                    </td>
+                                    <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-500">
+                                        {condominio.tipo_condominio}
+                                    </td>
+                                    <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-500"></td>
+                                </tr>
+                            ))
+                        )}
                     </tbody>
-                 </table>
+                </table>
             </div>
         </div>
     )
