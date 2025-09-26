@@ -12,6 +12,13 @@ export interface ICondominio {
     id_cliente: number;
 }
 
+export interface TableCondominio {
+    error: string;
+    success: boolean;
+    count: number;
+    data: ICondominio[];
+}
+
 export async function getCondominios() {
     const supabase = await createClient();
     const { data, error } = await supabase.from("condominio").select("*").order("id_condominio");
