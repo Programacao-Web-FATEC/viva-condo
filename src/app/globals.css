@@ -8,6 +8,11 @@
 input, textarea, select {
   background: #ffffff;
   color: #000000;
+  cursor: text;
+}
+
+button {
+  cursor: pointer;
 }
 
 @theme inline {

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { TableCondominio } from "@/services/condominio.service";
+import { MdEdit } from "react-icons/md";
 
 export default function ListaCondominios() {
     const [condominios, setCondominios] = useState<TableCondominio>();
@@ -73,7 +74,7 @@ export default function ListaCondominios() {
                                 </td> 
                             </tr>
                         </tbody>
-                    ): (
+                    ) : (
                         <tbody className="divide-y divide-gray-200 bg-white">
                             {condominios?.count == 0 ? (
                                 <tr>
@@ -102,7 +103,14 @@ export default function ListaCondominios() {
                                         <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-500">
                                             {condominio.tipo_condominio}
                                         </td>
-                                        <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-500"></td>
+                                        <td className="px-6 py-3 whitespace-nowrap text-sm text-black">
+                                            <button
+                                                type="button"
+                                                onClick={() => console.log(condominio.id_condominio)}
+                                            >
+                                                <MdEdit />
+                                            </button>
+                                        </td>
                                     </tr>
                                 ))
                             )}
