@@ -13,6 +13,12 @@ interface SideBarProps {
     children: ReactNode
 }
 
+interface SideBarItems {
+    label: string;
+    href: string;
+    icon: ReactNode;
+}
+
 export function MenuSideBar({ children }: SideBarProps) {
     const supabase = createClient();
     const route = usePathname();
@@ -21,6 +27,7 @@ export function MenuSideBar({ children }: SideBarProps) {
     useEffect(() => {
         const checkSession = async () => {
           const { data: { session } } = await supabase.auth.getSession();
+          console.log(route);
           if (session?.user) {
             setShowMenu(true);
           } else {
@@ -28,7 +35,20 @@ export function MenuSideBar({ children }: SideBarProps) {
           }
         };
         checkSession();
-      }, [route]);
+    }, [route]);
+
+    const routes: SideBarItems[] = [
+        {
+            label: 'Condomínios',
+            href: '/condominios',
+            icon: <BsHousesFill size={20} />
+        },
+        {
+            label: 'Usuários',
+            href: '/usuarios',
+            icon: <FaUser size={20} />
+        }
+    ]
 
     const logOut = async () => {
         await supabase.auth.signOut();
@@ -43,23 +63,17 @@ export function MenuSideBar({ children }: SideBarProps) {
                             Viva Condo
                         </span>
                     </div>
-                    <nav className="mt-4 flex-1 text-gray-500">
-                        <Link
-                            key={"condominio"}
-                            href={"/condominios"}
-                            className="flex items-center px-4 py-2 rounded-lg text-lg hover:bg-blue-100 hover:text-blue-700"
-                        >
-                            <BsHousesFill size={20} />
-                            <span className="ml-3">Condomínios</span>
-                        </Link>
-                        <Link
-                            key={"usuarios"}
-                            href={"/usuarios"}
-                            className="flex items-center mt-3 px-4 py-2 rounded-md text-lg hover:bg-blue-100 hover:text-blue-700"
-                        >
-                            <FaUser size={20} />
-                            <span className="ml-3">Usuários</span>
-                        </Link>
+                    <nav className="flex-1 text-gray-500">
+                        {routes.map((item) => (
+                            <Link
+                                key={item.label}
+                                href={item.href}
+                                className={`${item.href === route ? `bg-blue-100 text-blue-700` : `` } flex items-center mb-3 px-4 py-2 rounded-md  text-lg hover:bg-blue-100 hover:text-blue-700`}
+                            >
+                                {item.icon}
+                                <span className="ml-3">{item.label}</span>
+                            </Link>
+                        ))}
                         <hr className="w-[90%] mt-3 bg-gray-500" />
                         <Link
                             key={"logout"}
