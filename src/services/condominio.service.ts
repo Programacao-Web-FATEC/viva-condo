@@ -2,14 +2,13 @@ import { createClient } from "@/utils/supabase/client";
 
 export interface ICondominio {
     id_condominio: number;
-    id_administrador: number;
+    id_administradora: number;
     nome_condominio: string;
     endereco_condominio: string;
     cidade_condominio: string;
     uf_condominio: string;
     tipo_condominio: string;
-    created_at: string;
-    id_cliente: number;
+    created_at: string
 }
 
 export interface TableCondominio {

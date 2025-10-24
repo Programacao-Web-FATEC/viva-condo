@@ -1,12 +1,22 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { TableCondominio } from "@/services/condominio.service";
+import { ICondominio, TableCondominio } from "@/services/condominio.service";
+import { FaSearch } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
 
 export default function ListaCondominios() {
     const [condominios, setCondominios] = useState<TableCondominio>();
+    const [filtroTabela, setFiltroTabela] = useState("");
     const [loading, setLoading] = useState(true);
+
+    const tabelaFiltrada = condominios?.data.filter((value) => {
+        return value.nome_condominio.toLowerCase().includes(filtroTabela) ||
+        value.endereco_condominio.toLowerCase().includes(filtroTabela) ||
+        value.cidade_condominio.toLowerCase().includes(filtroTabela) ||
+        value.uf_condominio.toLowerCase().includes(filtroTabela) ||
+        value.tipo_condominio.toLowerCase().includes(filtroTabela)
+    })
 
     useEffect(() => {
         const buscarCondominios = async () => {
@@ -30,6 +40,21 @@ export default function ListaCondominios() {
             <div className="mb-4 flex items-center justify-between gap-4">
                 <h1 className="text-xl font-semibold">Condomínios</h1>
             </div>
+
+            <label htmlFor="filterTable" className="relative">
+                <FaSearch className="pointer-events-none absolute top-1/2 transform -translate-y-1/2 left-3 text-gray-500" />
+
+                <input
+                    type="text"
+                    name="filterTable"
+                    id="filterTable"
+                    placeholder="Pesquisar" 
+                    onChange={(e) => setFiltroTabela(e.target.value.toLowerCase())}
+                    className="h-[40px] w-[30%] pl-10 mb-4 border rounded-md focus:ring-2 focus:ring-blue-500"
+                    >
+                </input>
+            </label>
+
 
             <div className="bg-white rounded-md border border-gray-200 overflow-hidden">
                 <table className="min-w-full divide-y divide-gray-200">
@@ -76,14 +101,14 @@ export default function ListaCondominios() {
                         </tbody>
                     ) : (
                         <tbody className="divide-y divide-gray-200 bg-white">
-                            {condominios?.count == 0 ? (
+                            {tabelaFiltrada?.length == 0 ? (
                                 <tr>
                                     <td className="px-4 py-3 text-lg text-gray-700" colSpan={7}>
                                         Nenhum condomínio encontrado.
                                     </td> 
                                 </tr>
                             ) : (
-                                condominios?.data.map((condominio, index) => (
+                                tabelaFiltrada?.map((condominio, index) => (
                                     <tr key={condominio.id_condominio} className="hover:bg-gray-50">
                                         <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-500">
                                             {String(index + 1)}
