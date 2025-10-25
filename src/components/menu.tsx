@@ -1,12 +1,11 @@
 "use client"
 
 import Link from "next/link"
-import { ReactNode, useEffect, useState } from "react"
+import { ElementType, ReactNode, useEffect, useState } from "react"
 import { BsHousesFill } from "react-icons/bs";
 import { FaUser } from "react-icons/fa6";
 import { BiLogOut } from "react-icons/bi";
 import { createClient } from "@/utils/supabase/client";
-import { useRouter } from "next/router";
 import { usePathname } from "next/navigation";
 
 interface SideBarProps {
@@ -16,7 +15,9 @@ interface SideBarProps {
 interface SideBarItems {
     label: string;
     href: string;
-    icon: ReactNode;
+    icon: ElementType<{
+        className?: string;
+    }>;
 }
 
 export function MenuSideBar({ children }: SideBarProps) {
@@ -41,12 +42,12 @@ export function MenuSideBar({ children }: SideBarProps) {
         {
             label: 'Condomínios',
             href: '/condominios',
-            icon: <BsHousesFill size={20} />
+            icon: BsHousesFill
         },
         {
             label: 'Usuários',
             href: '/usuarios',
-            icon: <FaUser size={20} />
+            icon: FaUser
         }
     ]
 
@@ -58,8 +59,8 @@ export function MenuSideBar({ children }: SideBarProps) {
         <div className="flex min-h-screen">
             {showMenu ? (
                 <aside className="flex flex-col w-[250px] border-r border-color-black">
-                    <div className="flex items-center justify-between px-4 py-3">
-                        <span className="text-lg font-semibold text-gray-500">
+                    <div className="flex items-center justify-between px-4 pt-3">
+                        <span className="text-xl font-semibold text-gray-500">
                             Viva Condo
                         </span>
                     </div>
@@ -68,18 +69,18 @@ export function MenuSideBar({ children }: SideBarProps) {
                             <Link
                                 key={item.label}
                                 href={item.href}
-                                className={`${item.href === route ? `bg-blue-100 text-blue-700` : `` } flex items-center mb-3 px-4 py-2 rounded-md  text-lg hover:bg-blue-100 hover:text-blue-700`}
+                                className={`${item.href === route ? `bg-blue-100 text-blue-700` : `` } flex items-center mx-2 my-3 px-4 py-2 rounded-md  text-lg hover:bg-blue-100 hover:text-blue-700`}
                             >
-                                {item.icon}
+                                {<item.icon size={20}/>}
                                 <span className="ml-3">{item.label}</span>
                             </Link>
                         ))}
-                        <hr className="w-[90%] mt-3 bg-gray-500" />
+                        <hr className="m-2 bg-gray-500" />
                         <Link
                             key={"logout"}
                             href={"/"}
                             onClick={logOut}
-                            className="flex items-center mt-3 px-4 py-2 rounded-md text-lg hover:bg-blue-100 hover:text-blue-700"
+                            className="flex items-center mx-2 mt-3 px-4 py-2 rounded-md text-lg hover:bg-blue-100 hover:text-blue-700"
                         >
                             <BiLogOut size={20} />
                             <span className="ml-3">Sair</span>
@@ -87,7 +88,7 @@ export function MenuSideBar({ children }: SideBarProps) {
                     </nav>
                 </aside>
             ) : (
-                <div></div>
+                <div/>
             )}
             <main className="flex-1 p-2">
                 {children}
