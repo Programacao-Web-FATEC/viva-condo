@@ -1,9 +1,10 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { ICondominio, TableCondominio } from "@/services/condominio.service";
-import { FaSearch } from "react-icons/fa";
+import { TableCondominio } from "@/services/condominio.service";
 import { MdEdit } from "react-icons/md";
+import { FilterTableInput } from "@/components/filterInput";
+import { FaSearch } from "react-icons/fa";
 
 export default function ListaCondominios() {
     const [condominios, setCondominios] = useState<TableCondominio>();
@@ -41,20 +42,12 @@ export default function ListaCondominios() {
                 <h1 className="text-xl font-semibold">Condomínios</h1>
             </div>
 
-            <label htmlFor="filterTable" className="relative">
-                <FaSearch className="pointer-events-none absolute top-1/2 transform -translate-y-1/2 left-3 text-gray-500" />
-
-                <input
-                    type="text"
-                    name="filterTable"
-                    id="filterTable"
-                    placeholder="Pesquisar" 
-                    onChange={(e) => setFiltroTabela(e.target.value.toLowerCase())}
-                    className="h-[40px] w-[30%] pl-10 mb-4 border rounded-md focus:ring-2 focus:ring-blue-500"
-                    >
-                </input>
-            </label>
-
+            <FilterTableInput 
+                placeholder={"Pesquisa"} 
+                Icon={FaSearch}
+                filtroTabela={filtroTabela} 
+                setFiltroTabela={setFiltroTabela}
+            />
 
             <div className="bg-white rounded-md border border-gray-200 overflow-hidden">
                 <table className="min-w-full divide-y divide-gray-200">
