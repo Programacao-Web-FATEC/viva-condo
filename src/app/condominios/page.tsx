@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from "react"
 import { TableCondominio } from "@/services/condominio.service";
-import { MdEdit } from "react-icons/md";
 import { FilterTableInput } from "@/components/filterInput";
 import { FaSearch } from "react-icons/fa";
+import Dropdown from "@/components/dropdown";
 
 export default function ListaCondominios() {
     const [condominios, setCondominios] = useState<TableCondominio>();
@@ -122,12 +122,7 @@ export default function ListaCondominios() {
                                             {condominio.tipo_condominio}
                                         </td>
                                         <td className="px-6 py-3 whitespace-nowrap text-sm text-black">
-                                            <button
-                                                type="button"
-                                                onClick={() => console.log(condominio.id_condominio)}
-                                            >
-                                                <MdEdit />
-                                            </button>
+                                            <Dropdown />
                                         </td>
                                     </tr>
                                 ))
