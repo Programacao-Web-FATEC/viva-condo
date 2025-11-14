@@ -25,3 +25,12 @@ export async function getCondominios() {
     if (error) throw new Error(error.message);
     return data ?? [];    
 }
+
+export async function deleteCondominio(id:number) {
+    const supabase = await createClient();
+    const { data, error } = await supabase.from("condominio").delete().eq('id_condominio',id)
+
+    if (error) throw new Error(error.message);
+    return data ?? [];    
+
+}
