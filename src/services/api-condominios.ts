@@ -1,3 +1,5 @@
+import { createCondominio } from "./condominio.service";
+
 export interface ICondominio {
     id_condominio: string;
     nome_condominio: string;
@@ -10,7 +12,10 @@ export interface ICondominio {
 }
 
 export const getCondominios = async () => {
-    const response = await fetch('https://raw.githubusercontent.com/vagner107/viva-condo/refs/heads/main/src/app/condominios/api_condominio.json');
+    const response = await fetch('http://raw.githubusercontent.com/vagner107/viva-condo/refs/heads/main/src/app/condominios/api_condominio.json');
 
     return await response.json();
 }
+
+
+

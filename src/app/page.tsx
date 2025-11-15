@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
+import { SonnerDemo } from "@/components/toastNotification";
 
 export default function Login() {
   const supabase = createClient();
@@ -56,6 +57,7 @@ export default function Login() {
         <div className="w-full max-w-md bg-white p-8 shadow-lg rounded-lg">
           <h2 className="text-2xl font-bold mb-4">Olá 👋</h2>
           <p className="text-gray-500 mb-6">Insira as informações que você usou ao se registrar.</p>
+          <SonnerDemo/>
           <form onSubmit={login}>
             <input
               type="email"
