@@ -19,6 +19,16 @@ export default function ListaCondominios() {
         value.tipo_condominio.toLowerCase().includes(filtroTabela)
     })
 
+    const removerItemLocal = (id: number) => {
+    setCondominios((prev) => {
+        if (!prev) return prev;
+        return {
+            ...prev,
+            data: prev.data.filter((c) => c.id_condominio !== id),
+            count: prev.count - 1
+        };
+    });
+};
     useEffect(() => {
         const buscarCondominios = async () => {
             try {
@@ -122,7 +132,9 @@ export default function ListaCondominios() {
                                             {condominio.tipo_condominio}
                                         </td>
                                         <td className="px-6 py-3 whitespace-nowrap text-sm text-black">
-                                            <Dropdown />
+                                            <Dropdown 
+                                                id_condominio={condominio.id_condominio}
+                                                onDeleteSuccess={removerItemLocal}/>
                                         </td>
                                     </tr>
                                 ))
