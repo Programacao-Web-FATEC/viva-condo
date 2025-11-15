@@ -3,26 +3,17 @@ import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { SlOptionsVertical } from "react-icons/sl";
 import { MdEdit } from "react-icons/md";
 import { BiTrash } from "react-icons/bi";
-import { deleteCondominio } from "@/services/condominio.service";
-import { toast } from "sonner";
 
-interface DropdownProps {
-    id_condominio: number;
+interface dropdownProps {
+	setIdCondominio: React.Dispatch<React.SetStateAction<number>>;
+	id_condominio: number;
 	onDeleteSuccess: (id: number) => void;
+	setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>;
+	setName: React.Dispatch<React.SetStateAction<string>>;
+	name: string;
 }
 
-const Dropdown = ({ id_condominio, onDeleteSuccess}: DropdownProps) => {
-    
-    const deleteCondominioFunc = async () => {
-        try {
-            await deleteCondominio(id_condominio);
-            onDeleteSuccess(id_condominio);
-            toast.success("Condomínio excluído com sucesso!");
-        } catch (err) {
-			console.log(err)
-            toast.error("Erro ao excluir condomínio.");
-        }
-    };
+const Dropdown = ({ setOpenDialog, setName, name,setIdCondominio, id_condominio, onDeleteSuccess }: dropdownProps) => {
 
     return (
         <DropdownMenu.Root>
@@ -47,17 +38,16 @@ const Dropdown = ({ id_condominio, onDeleteSuccess}: DropdownProps) => {
                     </DropdownMenu.Item>
 
                     <DropdownMenu.Item
-                        className="text-sm text-red-500 flex items-center rounded-sm h-[25px] p-[10px] cursor-pointer outline-none hover:bg-gray-100"
-                        onClick={deleteCondominioFunc}
-                    >
-                        Excluir
-                        <div className="ml-auto pl-[20px]">
-                            <BiTrash />
-                        </div>
-                    </DropdownMenu.Item>
-
-                    <DropdownMenu.Arrow />
-                </DropdownMenu.Content>
+						onClick={() => {
+							setOpenDialog(true);
+							setName(name);
+							setIdCondominio(id_condominio);
+						}}
+						className="text-sm text-red-500 flex items-center rounded-sm h-[30px] p-[10px] relative cursor-pointer outline-none hover:bg-gray-100"
+					>
+						Excluir <div className="ml-auto pl-[20px]"><BiTrash /></div>
+					</DropdownMenu.Item>
+				</DropdownMenu.Content>
             </DropdownMenu.Portal>
         </DropdownMenu.Root>
     );
