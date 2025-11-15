@@ -5,11 +5,14 @@ import { TableCondominio } from "@/services/condominio.service";
 import { FilterTableInput } from "@/components/filterInput";
 import { FaSearch } from "react-icons/fa";
 import Dropdown from "@/components/dropdown";
+import ConfirmDialog from "@/components/confirmDialog";
 
 export default function ListaCondominios() {
     const [condominios, setCondominios] = useState<TableCondominio>();
     const [filtroTabela, setFiltroTabela] = useState("");
     const [loading, setLoading] = useState(true);
+    const [openDialog, setOpenDialog] = useState(false);
+    const [name, setName] = useState("");
 
     const tabelaFiltrada = condominios?.data.filter((value) => {
         return value.nome_condominio.toLowerCase().includes(filtroTabela) ||
@@ -122,7 +125,7 @@ export default function ListaCondominios() {
                                             {condominio.tipo_condominio}
                                         </td>
                                         <td className="px-6 py-3 whitespace-nowrap text-sm text-black">
-                                            <Dropdown />
+                                            <Dropdown setOpenDialog={setOpenDialog} setName={setName} name={condominio.nome_condominio} />
                                         </td>
                                     </tr>
                                 ))
@@ -131,6 +134,7 @@ export default function ListaCondominios() {
                     )}
                 </table>
             </div>
+            <ConfirmDialog openDialog={openDialog} setOpenDialog={setOpenDialog} name={name} />
         </div>
     )
 }
