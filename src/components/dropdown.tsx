@@ -11,9 +11,10 @@ interface dropdownProps {
 	setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>;
 	setName: React.Dispatch<React.SetStateAction<string>>;
 	name: string;
+    onEdit?: () => void;
 }
 
-const Dropdown = ({ setOpenDialog, setName, name,setIdCondominio, id_condominio, onDeleteSuccess }: dropdownProps) => {
+const Dropdown = ({ setOpenDialog, setName, name, setIdCondominio, id_condominio, onDeleteSuccess, onEdit }: dropdownProps) => {
 
     return (
         <DropdownMenu.Root>
@@ -29,6 +30,7 @@ const Dropdown = ({ setOpenDialog, setName, name,setIdCondominio, id_condominio,
                     sideOffset={5}
                 >
                     <DropdownMenu.Item
+                        onClick={() => { if (onEdit) onEdit(); }}
                         className="text-sm flex items-center rounded-sm h-[25px] mb-[5px] p-[10px] cursor-pointer outline-none hover:bg-gray-100"
                     >
                         Editar

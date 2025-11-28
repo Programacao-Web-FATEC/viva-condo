@@ -34,3 +34,17 @@ export async function deleteCondominio(id:number) {
     return data ?? [];    
 
 }
+
+export async function createCondominio(payload: Omit<ICondominio, 'id_condominio' | 'created_at'>) {
+    const supabase = await createClient();
+    const { data, error } = await supabase.from('condominio').insert([payload]).select().single();
+    if (error) throw new Error(error.message);
+    return data;
+}
+
+export async function updateCondominio(id:number, payload: Partial<ICondominio>) {
+    const supabase = await createClient();
+    const { data, error } = await supabase.from('condominio').update(payload).eq('id_condominio', id).select().single();
+    if (error) throw new Error(error.message);
+    return data;
+}

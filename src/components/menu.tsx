@@ -58,29 +58,33 @@ export function MenuSideBar({ children }: SideBarProps) {
     return (
         <div className="flex min-h-screen">
             {showMenu ? (
-                <aside className="flex flex-col w-[250px] border-r border-color-black">
-                    <div className="flex items-center justify-between px-4 pt-3">
-                        <span className="text-xl font-semibold text-gray-500">
-                            Viva Condo
-                        </span>
+                <aside className="flex flex-col w-[250px] bg-[#0b3e3e] border-r border-white/10">
+                    <div className="flex items-center gap-3 px-4 pt-4 pb-3">
+                        <div className="w-12 h-12 rounded-full bg-[#0F4C4C] flex items-center justify-center ring-2 ring-white/10">
+                            <img src="/Viva Condo Logo 2.png" alt="logo" className="w-8 h-8 rounded-full" />
+                        </div>
+                        <div>
+                            <span className="text-lg font-bold text-white">Viva Condo</span>
+                            <div className="text-sm text-white/70">Gestão simplificada</div>
+                        </div>
                     </div>
-                    <nav className="flex-1 text-gray-500">
+                    <nav className="flex-1 text-white/90 px-2">
                         {routes.map((item) => (
                             <Link
                                 key={item.label}
                                 href={item.href}
-                                className={`${item.href === route ? `bg-blue-100 text-blue-700` : `` } flex items-center mx-2 my-3 px-4 py-2 rounded-md  text-lg hover:bg-blue-100 hover:text-blue-700`}
+                                className={`flex items-center mx-2 my-2 px-4 py-3 rounded-md text-base transition-colors duration-150 ${item.href === route ? 'bg-[#0F4C4C] text-white shadow-md' : 'text-white/80 hover:bg-white/5 hover:text-white'}`}
                             >
-                                {<item.icon size={20}/>}
-                                <span className="ml-3">{item.label}</span>
+                                {<item.icon size={20} className="text-current" />}
+                                <span className="ml-3 font-medium">{item.label}</span>
                             </Link>
                         ))}
-                        <hr className="m-2 bg-gray-500" />
+                        <hr className="my-3 border-white/10" />
                         <Link
                             key={"logout"}
                             href={"/"}
                             onClick={logOut}
-                            className="flex items-center mx-2 mt-3 px-4 py-2 rounded-md text-lg hover:bg-blue-100 hover:text-blue-700"
+                            className="flex items-center mx-2 mt-3 px-4 py-3 rounded-md text-base text-white/80 hover:bg-white/5"
                         >
                             <BiLogOut size={20} />
                             <span className="ml-3">Sair</span>

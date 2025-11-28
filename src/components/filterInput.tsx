@@ -18,9 +18,8 @@ export function FilterTableInput({placeholder, Icon, filtroTabela, setFiltroTabe
                     id="filterTable"
                     placeholder= {placeholder}
                     onChange={(e) => {setFiltroTabela(e.target.value.toLowerCase())}}
-                    className="h-[40px] w-[30%] pl-10 mb-4 border rounded-md focus:ring-2 focus:ring-blue-500"
-                    >
-                </input>
+                    className="h-[40px] w-full pl-10 border rounded-md focus:ring-2 focus:ring-blue-500"
+                />
             </label>
     )
 }

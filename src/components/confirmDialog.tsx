@@ -28,8 +28,8 @@ const ConfirmDialog = ({ openDialog, setOpenDialog, name,id_condominio, onDelete
 
 	<AlertDialog.Root onOpenChange={setOpenDialog} open={openDialog}>
 		<AlertDialog.Portal>
-			<AlertDialog.Overlay className="fixed inset-0 bg-black/50 data-[state=open]:animate-overlayShow" />
-			<AlertDialog.Content className="fixed left-1/2 top-1/2 max-h-[85vh] w-[60vw] max-w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-md bg-white p-[25px] shadow-[var(--shadow-6)] focus:outline-none data-[state=open]:animate-contentShow text-center">
+			<AlertDialog.Overlay className="fixed inset-0 bg-black/50 z-40 data-[state=open]:animate-overlayShow" />
+			<AlertDialog.Content className="fixed left-1/2 top-1/2 max-h-[85vh] w-[60vw] max-w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-md bg-white p-[25px] shadow-[var(--shadow-6)] focus:outline-none data-[state=open]:animate-contentShow text-center z-50">
 				<div className="rounded-[100%] w-16 h-16 bg-red-600 mb-2 pb-1 flex justify-center items-center mx-auto">
                     <GoAlert className="text-white" size={36} />
                 </div>

@@ -95,6 +95,16 @@ button {
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  --brand-600: #0F4C4C;
+}
+
+/* Sidebar utilities */
+.sidebar-link-active {
+  background-color: var(--brand-600);
+  color: white;
+}
+.sidebar-link-hover:hover {
+  background-color: rgba(255,255,255,0.04);
 }
 
 .dark {
@@ -136,6 +146,73 @@ button {
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground m-0;
   }
+}
+
+/* Login card / logo styles */
+.logo-circle {
+  width: 6vw;
+  height: 6vh;
+  border-radius: 9999px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(15, 76, 76, 0.12);
+  border: 6px solid transparent;
+}
+
+.bg-login-cta {
+  background-color: #0F4C4C;
+}
+.bg-login-cta:hover {
+  filter: brightness(0.95);
+}
+
+/* Frosted overlay covering the background to create a matte glass effect */
+.frost-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(255, 255, 255, 0.06); /* less intense */
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 6;
+}
+
+/* Login-page specific background wrapper (teal background + frosted overlay) */
+.login-bg {
+  background-color: #0F4C4C;
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 4;
+}
+
+/* Root container above the overlay */
+.page-root {
+  position: relative;
+  z-index: 10;
+  padding: 3rem 1rem; /* won't hug the viewport edges */
+}
+
+.logo-circle {
+  width: 80px;
+  height: 80px;
+}
+
+/* Glassy login card to avoid a harsh white bar */
+.login-card {
+  background-color: rgba(255,255,255,0.85);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid rgba(255,255,255,0.6);
+  box-shadow: 0 10px 30px rgba(2,9,12,0.25);
+}
+
+/* Allow the document to grow and scroll normally; login page uses .login-bg when fixed */
+html, body, #__next {
+  min-height: 100%;
+  width: 100%;
 }

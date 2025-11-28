@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
-import { SonnerDemo } from "@/components/toastNotification";
+import Image from "next/image";
 
 export default function Login() {
   const supabase = createClient();
@@ -52,50 +52,72 @@ export default function Login() {
   const type = showPassword ? "text" : "password";
 
   return (
-    <div className="flex h-screen flex-col md:flex-row">
-      <div className="w-full flex flex-col items-center justify-center gap-4 p-6">
-        <div className="w-full max-w-md bg-white p-8 shadow-lg rounded-lg">
-          <h2 className="text-2xl font-bold mb-4">Olá 👋</h2>
-          <p className="text-gray-500 mb-6">Insira as informações que você usou ao se registrar.</p>
-          <SonnerDemo/>
-          <form onSubmit={login}>
-            <input
-              type="email"
-              placeholder="E-mail"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full p-3 mb-4 border rounded-md focus:ring-2 focus:ring-blue-500"
-              required
-            />
-            <div className="relative">
-              <input
-                type={type}
-                placeholder="Senha"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full p-3 mb-4 border rounded-md focus:ring-2 focus:ring-blue-500"
-                required
-              />
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 transform -translate-y-4.5 text-gray-500"
-              >
-                {showPassword ? <IoMdEyeOff size={20} /> : <IoMdEye size={20} />}
-              </button>
+    <div className="login-bg relative">
+      <div className="frost-overlay" />
+
+      <div className="page-root flex w-[100vw] h-[100vh] items-center justify-center">
+        <div className="w-full flex items-center justify-center p-6">
+          <div className="relative w-full max-w-md">
+            {/* Logo circle overlapping the card */}
+            <div className="absolute left-1/2 transform -translate-x-1/2 -top-8 z-20">
+              <div className="logo-circle">
+                <Image
+                  src="/Viva Condo Logo 2.png"
+                  alt="Viva Condo"
+                  width={90}
+                  height={90}
+                  className="rounded-full"
+                />
+              </div>
             </div>
-            
-            <button type="submit"
-              className="w-full bg-gradient-to-r from-blue-500 to-green-500 text-white p-3 rounded-md hover:opacity-90 transition-all disabled:opacity-50"
-              disabled={loading}
-            >
-              {!loading ? "Entrar" : "Entrando..."}
-            </button>
-          </form>
+
+            <div className="login-card p-8 shadow-lg rounded-lg pt-12">
+              <h2 className="text-2xl font-bold mb-2 text-center">Olá 👋</h2>
+              <p className="text-gray-500 mb-6 text-center">Insira as informações que você usou ao se registrar.</p>
+
+              <form onSubmit={login}>
+                <input
+                  type="email"
+                  placeholder="E-mail"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full p-3 mb-4 border rounded-md focus:ring-2 focus:ring-blue-500"
+                  required
+                />
+
+                <div className="relative">
+                  <input
+                    type={type}
+                    placeholder="Senha"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="w-full p-3 mb-4 border rounded-md focus:ring-2 focus:ring-blue-500"
+                    required
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 transform -translate-y-4.5 text-gray-500"
+                  >
+                    {showPassword ? <IoMdEyeOff size={20} /> : <IoMdEye size={20} />}
+                  </button>
+                </div>
+
+                <button
+                  type="submit"
+                  className="w-full bg-login-cta text-white p-3 rounded-md hover:opacity-90 transition-all disabled:opacity-50"
+                  disabled={loading}
+                >
+                  {!loading ? "Entrar" : "Entrando..."}
+                </button>
+              </form>
+
+              {error && (
+                <h3 className="text-red-600 mt-4 text-center">{error}</h3>
+              )}
+            </div>
+          </div>
         </div>
-        {error ?? (
-          <h3 className="text-red-600">{error}</h3>
-        )}
       </div>
     </div>
   );

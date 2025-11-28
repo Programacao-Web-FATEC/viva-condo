@@ -28,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="pt-br">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased w-[100vw] h-[100vh] overflow-hidden`}
       >
         <Toaster richColors/>
         <MenuSideBar children={children}/>
